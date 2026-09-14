@@ -14,9 +14,32 @@ const SOURCE_LABELS = {
   'https://www.militarytimes.com/arc/outboundfeeds/rss/category/veterans/?outputType=xml': 'Military Times · Veterans',
 };
 
+// Brand colors for fallback cards (story had no scrapable hero image).
+// Muted, ink-friendly tones so the layout reads as intentional, not missing.
+const SOURCE_BRAND = {
+  'news.usni.org': { bg: '#1f3a5f', fg: '#f0f4f8' },          // USNI navy
+  'www.defensenews.com': { bg: '#3a3a3a', fg: '#f5f5f5' },   // Defense News slate
+  'www.militarytimes.com': { bg: '#2c5530', fg: '#f0f5f0' }, // Military Times green
+  'taskandpurpose.com': { bg: '#8b3a3a', fg: '#faf0f0' },    // Task & Purpose red
+  'www.airandspaceforces.com': { bg: '#1f4e4a', fg: '#f0f5f4' }, // AFA teal
+  'www.twz.com': { bg: '#5c4a2e', fg: '#faf6ee' },           // TWZ tan
+  'breakingdefense.com': { bg: '#4a3a2e', fg: '#faf6f0' },   // Breaking Defense brown
+  'www.vaoig.gov': { bg: '#3a4a5c', fg: '#f0f4f8' },         // VA OIG blue-gray
+};
+
 function sourceLabel(url) {
   if (!url) return '';
   return SOURCE_LABELS[url] || (() => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } })();
+}
+
+function sourceBrand(url) {
+  if (!url) return null;
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return SOURCE_BRAND[host] || null;
+  } catch {
+    return null;
+  }
 }
 
 function timeOfDay(iso) {
@@ -39,11 +62,23 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function imageTag(item) {
-  if (!item.image) return '';
-  return `<a class="img-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
-    <img class="hero" src="${escapeHtml(item.image)}" alt="" loading="lazy" />
+function fallbackBlock(item) {
+  const brand = sourceBrand(item.source) || { bg: '#2a2a2a', fg: '#f5f5f5' };
+  const label = sourceLabel(item.source) || 'Source';
+  return `<a class="img-link fallback" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+    <div class="hero fallback-hero" style="background:${brand.bg};color:${brand.fg};">
+      <span class="fallback-label">${escapeHtml(label)}</span>
+    </div>
   </a>`;
+}
+
+function imageTag(item) {
+  if (item.image) {
+    return `<a class="img-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+      <img class="hero" src="${escapeHtml(item.image)}" alt="" loading="lazy" />
+    </a>`;
+  }
+  return fallbackBlock(item);
 }
 
 function card(item, { withImage = true } = {}) {

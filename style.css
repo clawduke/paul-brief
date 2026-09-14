@@ -178,6 +178,26 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
   border-radius: 0;
 }
 
+/* Fallback "card" for stories with no scrapable hero image — publisher brand
+   color background with the source label centered. Looks intentional, not
+   missing, so USNI/Defense News cards don't read as broken. */
+.fallback { text-decoration: none; }
+.fallback-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.fallback-label {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  padding: 1rem;
+  line-height: 1.2;
+}
+
 /* Lead story image gets a touch more breathing room */
 .lede .main .img-link { margin: 0 0 1rem; }
 .lede .main .hero { aspect-ratio: 3 / 2; }
