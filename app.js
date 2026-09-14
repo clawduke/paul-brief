@@ -1,7 +1,6 @@
 // The Paul Brief — fetches today's edition JSON and renders the front page.
-// For the inaugural edition we load the static edition file. When the
-// automation publishes a fresh daily edition, this can be pointed at a
-// manifest of all editions.
+// When the automation publishes a fresh daily edition, app.js points at
+// `data/edition-YYYY-MM-DD.json` for the current date.
 
 const SOURCE_LABELS = {
   'https://breakingdefense.com/feed/': 'Breaking Defense',
@@ -40,9 +39,17 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function card(item) {
+function imageTag(item) {
+  if (!item.image) return '';
+  return `<a class="img-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+    <img class="hero" src="${escapeHtml(item.image)}" alt="" loading="lazy" />
+  </a>`;
+}
+
+function card(item, { withImage = true } = {}) {
   return `
     <article class="card">
+      ${withImage ? imageTag(item) : ''}
       <h3><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a></h3>
       ${item.summary ? `<p class="summary">${escapeHtml(item.summary)}</p>` : ''}
       <div class="byline">${byline(item)}</div>
@@ -72,17 +79,18 @@ async function loadEdition() {
 
     document.getElementById('lede').innerHTML = `
       <div class="main">
+        ${imageTag(lead)}
         <h2><a href="${escapeHtml(lead.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(lead.title)}</a></h2>
         ${lead.summary ? `<p class="summary">${escapeHtml(lead.summary)}</p>` : ''}
         <div class="byline">${byline(lead)}</div>
       </div>
       <aside class="rail">
-        ${rail.map(card).join('')}
+        ${rail.map((it) => card(it, { withImage: true })).join('')}
       </aside>
     `;
 
-    document.getElementById('grid').innerHTML = main.map(card).join('');
-    document.getElementById('wires').innerHTML = wires.map(card).join('');
+    document.getElementById('grid').innerHTML = main.map((it) => card(it, { withImage: true })).join('');
+    document.getElementById('wires').innerHTML = wires.map((it) => card(it, { withImage: false })).join('');
   } catch (err) {
     document.getElementById('lede').innerHTML = `<p>Error loading today's edition: ${escapeHtml(err.message)}</p>`;
   }

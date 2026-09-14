@@ -165,6 +165,23 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
   margin: 0 0 0.5rem;
 }
 
+/* Hero image — NYT-style: photo above headline, 16:9 crop, full-bleed inside card */
+.img-link { display: block; margin: 0 0 0.7rem; }
+.img-link:hover { text-decoration: none; }
+
+.hero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #ece6d6;
+  border-radius: 0;
+}
+
+/* Lead story image gets a touch more breathing room */
+.lede .main .img-link { margin: 0 0 1rem; }
+.lede .main .hero { aspect-ratio: 3 / 2; }
+
 .section-title {
   font-family: var(--sans);
   text-transform: uppercase;
