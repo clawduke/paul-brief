@@ -93,7 +93,7 @@ function card(item, { withImage = true } = {}) {
 }
 
 async function loadEdition() {
-  const res = await fetch('data/edition-2026-09-14.json', { cache: 'no-store' });
+  const res = await fetch('data/edition-2026-09-15.json', { cache: 'no-store' });
   if (!res.ok) throw new Error('failed to load edition');
   return res.json();
 }
