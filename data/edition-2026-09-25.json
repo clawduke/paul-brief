@@ -1,7 +1,15 @@
 {
-  "generatedAt": "2026-09-25T14:30:44.346Z",
+  "generatedAt": "2026-09-25T14:53:51.064Z",
   "windowHours": 24,
   "items": [
+    {
+      "source": "https://breakingdefense.com/feed/",
+      "title": "How China is rethinking tank survival against FPVs and top-attack threats",
+      "url": "https://breakingdefense.com/2026/09/how-china-is-rethinking-tank-survival-against-fpvs-and-top-attack-threats/",
+      "publishedAt": "2026-09-25T14:37:52.000Z",
+      "author": "Tye Graham",
+      "summary": "The drone age did not end armored warfare. It rewrote the terms of survival, and Chinese military analysts are paying attention."
+    },
     {
       "source": "https://www.airandspaceforces.com/feed/",
       "title": "Newest AIM-9X Missiles Not Meeting Operational Availability Goal",
@@ -105,14 +113,6 @@
       "publishedAt": "2026-09-24T14:55:50.000Z",
       "author": "U.S. Naval Institute Staff",
       "summary": "The following is the Sept. 23, 2026, Congressional Research Service report, Bahrain: Issues for U.S. Policy. From the Report The Kingdom of Bahrain is a small island nation connected by a causeway to Saudi Arabia (15.5 miles away) and once claimed by Iran (124 miles away). Wedged between these two larger regional po…"
-    },
-    {
-      "source": "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml",
-      "title": "Desolate Arctic outpost likely to host US troops under new Greenland deal",
-      "url": "https://www.defensenews.com/news/your-military/2026/09/25/desolate-arctic-outpost-likely-to-host-us-troops-under-new-greenland-deal/",
-      "publishedAt": "2026-09-25T13:20:08.000Z",
-      "author": "Stine Jacobsen, Jacob Gronholt-Pedersen and Tom Little, Reuters",
-      "summary": "Under a U.S. agreement signed this week, a small outpost at Mestersvig, Greenland, could soon become a key American military foothold in the Arctic."
     }
   ]
 }
